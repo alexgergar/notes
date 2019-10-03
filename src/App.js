@@ -5,12 +5,19 @@ import List from './components/List.js';
 import Note from './components/Note.js';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      showNote: false
+    };
+  }
   render() {
+    const { showNote } = this.state;  
+
     return (
       <div className="App">
         <Nav />
-        <List />
-        <Note />
+          { showNote ? <Note /> : <List /> } 
       </div>
     )
   }
