@@ -1,0 +1,520 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  border: 0px;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  width: 100%;
+  height: 100vh;
+  background-color: #E1E2E1;
+  color: #333;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  background-color: #FCD748;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+  padding-left: 40px;
+  padding-right: 40px;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 0.6px;
+  border-top: 8px solid #C5A623;
+}
+
+@keyframes move {
+    0%   {transform: rotate(-10deg);}
+    25%  {transform: rotate(10deg);}
+    50%  {transform: rotate(-10deg);}
+    75%  {transform: rotate(10deg);}
+    100% {margin-left: 0; transform: rotate(-10deg);}
+}
+
+.nav-logo {
+  color: #333;
+  font-size: 2em;
+  
+  float: left;
+  cursor: pointer;
+  animation-name: move;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  padding: 10px;
+  background-color: #FCD748;
+  color: black;
+  float: right;
+  font-size: 1.2em;
+  border-radius: 20px;
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  z-index: 10;
+}
+
+.nav-button:hover {
+  background: #C5A623;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.24);
+}
+
+.note-card-container {
+  display: -webkit-flex;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  position: relative;
+  height: 293px;
+  width: 293px;
+  border-radius: 3px;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  margin: 15px;
+  text-align: left;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-family: 'Roboto', sans-serif;
+  background-color: #FFFEA5;
+}
+
+.note-card-container:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25);
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.note-card-title {
+  width: 200px;
+  height: 40px;
+  color: white;
+  color: #C5A623;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 18px;
+  padding-top: 10px;
+  padding-left: 15px;
+  text-align: left;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.note-card-tags {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  width: 293px;
+  height: 50px;
+  padding-left: 10px;
+  overflow-x: hidden;
+  background-color: #F5F5F6;
+}
+
+.note-card-tag {
+  font-size: 0.8em;
+  padding: 2px;
+  padding-top: 0;
+  padding-bottom: 0;
+  color: #C5A623;
+  font-weight: bold;
+  border-radius: 2px;
+  margin: 2.5px;
+  letter-spacing: 0.6px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.note-card-content {
+  display: -webkit-flex;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  width: 100%;
+  height: 200px;
+  padding-top: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.1px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+.note-card-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #C5A623;
+  border: 2px solid #C5A623;
+  border-radius: 100%;
+  text-align: center;
+  font-size: 8px;
+  width: 22px;
+  height: 22px;
+  transition: all 0.3s ease;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.note-card-delete > i {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.note-card-delete:hover {
+  background: rgb(198, 79, 79);
+  color: white;
+  transform: rotate(180deg);
+}
+
+.note-card-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  color: #C5A623;
+  border-radius: 100%;
+  font-size: 8px;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  font-size: 1.5em;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.note-card-edit > i {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.note-card-edit:hover {
+  color: rgb(198, 79, 79);
+  transform: rotate(90deg);
+}
+
+/* NOTE SHOW PAGE CSS */
+
+.note-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  height: auto;
+}
+
+.note-form {
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 90vw;
+}
+
+.note-title-input {
+  margin-top: 20px;
+  border: none;
+  font-size: 28px;
+  border-bottom: 2px solid #FFFEA5;
+  background-color: #FFFEA5;
+  color: #C5A623;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  width: 100%;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 10px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  transition: all 0.2s ease-in;
+  z-index: 2;
+}
+
+.note-title-input::placeholder {
+  color: rgb(217, 217, 217);
+}
+
+.note-title-input:focus {
+  outline: none;
+}
+
+.note-textarea {
+  background-color: #FFFEA5;
+  width: 100%;
+  height: 300px;
+  border: none;
+  resize: none;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-top: 0;
+  border-radius: none;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  line-height: 1.7;
+  font-weight: bold;
+  transition: all 0.2s ease-in;
+}
+
+.note-textarea:focus {
+  outline: none;
+}
+
+.note-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  padding: 10px;
+  background-color: #FCD748;
+  border: none;
+  color: black;
+  float: right;
+  font-size: 1.2em;
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.note-button:focus {
+  outline: none;
+}
+
+.note-button:hover {
+  background: #C5A623;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.24);
+}
+
+
+.tag-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  width: 90vw;
+  height: auto;
+  padding: 10px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  background-color: #F5F5F6;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+@media only screen and (max-width: 500px) {
+  .tag-container {
+    flex-direction: column;
+  }
+}
+
+.tag-button-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  font-size: 16px;
+  color: rgb(158, 158, 158);
+  height: auto;
+  min-width: 150px;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.tag-button-container > form {
+  width: 100%;
+}
+
+@media only screen and (min-width: 500px) {
+  .tag-button-container {
+    width: auto;
+  }
+
+  .tag-button-container > form {
+    width: auto;
+  }
+}
+
+.tag-button-container > span {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.tag-button {
+  background: rgb(158, 158, 158);
+  color: white;
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+  border-radius: 100%;
+  box-shadow: 0 3px 9px rgba(0,0,0,0.1);
+  width: 25px;
+  margin-left: 2.5px;
+}
+
+.tag-button:hover {
+  background: rgb(198, 79, 79);
+}
+
+.tag-input {
+  padding-left: 2.5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border: none;
+  height: 25px;
+  width: 100%;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+  font-family: 'Roboto', sans-serif;
+}
+
+.tag-input:focus {
+  outline: none;
+}
+
+.tag-list-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 5px;
+}
+
+.tag {
+  padding-top: 2px;
+  font-size: 1em;
+  margin-left: 5px;
+  margin-top: 5px;
+  border-radius: 3px;
+  transition: all 0.2s ease-in;
+  height: 25px;
+  min-width: 80px;
+  width: auto;
+  position: relative;
+  cursor: pointer;
+  padding-bottom: 2.5px;
+  padding-left: 5px;
+  padding-right: 20px;
+  color: #C5A623;
+  font-weight: bold;
+  margin: 2.5px;
+  letter-spacing: 0.6px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.tag:hover {
+  background: rgb(198, 79, 79);;
+  color: #333;
+}
+
+.delete {
+  text-align: center;
+  opacity: 0;
+  float: right;
+  margin-top: auto;
+  margin-left: 5px;
+  margin-right: -15px;
+  transition: all 0.2s ease-in;
+  font-family: sans-serif;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete > i {
+  font-size: 18px;
+}
+
+.tag:hover .delete {
+  opacity: 1;
+}
+
+.list-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
+  padding-top: 15px;
+}
+
+.flash-container {
+  position: absolute;
+  left: 50%;
+  margin-left: -250px;
+  top: 10%;
+  color: #C5A623;
+  background-color: #F5F5F6;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19);
+  border-radius: 3px;
+  width: 500px;
+  height: 80px;
+  text-align: center;
+  z-index: 100;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  transition: all 0.3s ease-in;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
