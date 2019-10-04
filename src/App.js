@@ -11,7 +11,8 @@ class App extends Component {
     super();
     this.state = {
       showNote: false,
-      notes: [] 
+      notes: [],
+      note: {} 
     };
   }
 
@@ -27,8 +28,14 @@ class App extends Component {
     .catch((err) => console.log(err.response.data) );
   }
 
+  getNote = (id) => {
+    axios.get(urlFor(`notes/${id}`))
+    .then((res) => this.setState({ note: res.data, showNote: true }) ) // want to pass note data and show it (showNote: true)
+    .catch((err) => console.log(err.response.data) );
+  }
+
   render() {
-    const { showNote, notes } = this.state;  // this keeps track of state and also needed to push state to child comp for their props - remember to list in their mounted comp in return
+    const { showNote, notes } = this.state;  // here so you can use the variable as state and this keeps track of state and also needed to push state to child comp for their props - remember to list in their mounted comp in return
 
     return (
       <div className="App">
@@ -39,6 +46,8 @@ class App extends Component {
             <List 
               getNotes={this.getNotes} // give list comp access to getnotes props 
               notes={notes}   // give list comp access to notes prop
+              getNote={this.getNote}
+
               /> } 
       </div>
     )

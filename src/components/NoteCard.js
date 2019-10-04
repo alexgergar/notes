@@ -2,7 +2,7 @@ import React from 'react';
 
 class NoteCard extends React.Component {
   render() {
-    const { note } = this.props;
+    const { note, getNote } = this.props;
 
     return (
       <div className="note-card-container">
@@ -13,10 +13,10 @@ class NoteCard extends React.Component {
           {note.content}
         </div>
         <span className="note-card-delete">
-          <i class="material-icons">close</i>
+          <i className="material-icons">close</i>
         </span>
-        <span className="note-card-edit">
-          <i class="material-icons">create</i>
+        <span className="note-card-edit" onClick={() => getNote(note.id)}>
+          <i className="material-icons">create</i>
         </span>
       </div>
     );
