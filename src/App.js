@@ -35,13 +35,15 @@ class App extends Component {
   }
 
   render() {
-    const { showNote, notes } = this.state;  // here so you can use the variable as state and this keeps track of state and also needed to push state to child comp for their props - remember to list in their mounted comp in return
+    const { showNote, notes, note } = this.state;  // here so you can use the variable as state and this keeps track of state and also needed to push state to child comp for their props - remember to list in their mounted comp in return
 
     return (
       <div className="App">
         <Nav toggleNote={this.toggleNote} showNote={showNote} />
           { showNote ?  // the toggleNote={this.toggleNote} + showNote={showNote} are state that are being passed down
-            <Note /> 
+            <Note 
+              note={note}
+            /> 
             : 
             <List 
               getNotes={this.getNotes} // give list comp access to getnotes props 
