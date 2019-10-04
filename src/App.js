@@ -11,7 +11,7 @@ class App extends Component {
     super();
     this.state = {
       showNote: false,
-      notes: []
+      notes: [] 
     };
   }
 
@@ -28,12 +28,12 @@ class App extends Component {
   }
 
   render() {
-    const { showNote, notes } = this.state;  // this keeps track of state
+    const { showNote, notes } = this.state;  // this keeps track of state and also needed to push state to child comp for their props - remember to list in their mounted comp in return
 
     return (
       <div className="App">
         <Nav toggleNote={this.toggleNote} showNote={showNote} />
-          { showNote ? 
+          { showNote ?  // the toggleNote={this.toggleNote} + showNote={showNote} are state that are being passed down
             <Note /> 
             : 
             <List 
