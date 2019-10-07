@@ -8,7 +8,7 @@ class List extends React.Component {
   }
 
   render() {
-    const { notes, getNote } = this.props; // extracts notes from list comp props given to it by parent
+    const { notes, getNote, deleteNote } = this.props; // extracts notes from list comp props given to it by parent
 
     const cards = notes.map((note, index) => {  // created the cards variable that iteraites thru notes array in app state
       return (
@@ -17,6 +17,7 @@ class List extends React.Component {
           index={index}
           note={note}
           getNote={getNote}
+          deleteNote={deleteNote}
         />
       )
     });

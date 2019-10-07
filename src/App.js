@@ -12,13 +12,15 @@ class App extends Component {
     this.state = {
       showNote: false,
       notes: [],
-      note: {} 
+      note: {} ,
+      newTag: false
     };
   }
 
   toggleNote = () => {
     this.setState({
-      showNote: ! this.state.showNote // flips the state boolean
+      showNote: !this.state.showNote, // flips the state boolean
+      note: {} // this will clear out any data that was stored so you will have a clean slate if clicked cancel then new note
     })
   }
 
@@ -43,13 +45,28 @@ class App extends Component {
   }
   
   submitNote = (data, id) => {
-    this.preformSubmissionRequest(data, id)
+    this.preformSubmissionRequest(data, id) // this figures out whether or not it's a post/patch
     .then((res) => this.setState({ showNote: false}) )
     .catch((err) => console.log(err.response.data));
   }
 
+  deleteNote = (id) => {
+    const newNotesState = this.state.notes.filter((note) => note.id !== id); // this will delete the note by id in the notes array - which is the state of the notes
+    axios.delete(urlFor(`notes/${id}`)) // this will delete it from the db
+    .then((res) => this.setState({ notes: newNotesState}) ) // This is the successfull situation with the state now being the new array of notes w/o the one we deleted
+    .catch((err) => console.log(err.response.data));
+  }
+
+  showTagForm = () => {
+    this.setState({ newTag: true});
+  }
+
+  closeTagForm = () => {
+    this.setState({ newTag: false });
+  }
+
   render() {
-    const { showNote, notes, note } = this.state;  // here so you can use the variable as state and this keeps track of state and also needed to push state to child comp for their props - remember to list in their mounted comp in return
+    const { showNote, notes, note, newTag } = this.state;  // here so you can use the variable as state and this keeps track of state and also needed to push state to child comp for their props - remember to list in their mounted comp in return
 
     return (
       <div className="App">
@@ -58,12 +75,16 @@ class App extends Component {
             <Note 
               note={note}
               submitNote={this.submitNote}
+              showTagForm={this.showTagForm}
+              newTag={newTag}
+              closeTagForm={this.closeTagForm}
             /> 
             : 
             <List 
               getNotes={this.getNotes} // give list comp access to getnotes props 
               notes={notes}   // give list comp access to notes prop
               getNote={this.getNote}
+              deleteNote={this.deleteNote}
 
               /> } 
       </div>
