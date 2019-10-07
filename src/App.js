@@ -5,6 +5,7 @@ import List from './components/List.js';
 import Note from './components/Note.js';
 import axios from 'axios';
 import urlFor from './helpers/urlFor';
+import Flash from './components/Flash.js';
 
 class App extends Component {
   constructor() {
@@ -13,7 +14,8 @@ class App extends Component {
       showNote: false,
       notes: [],
       note: {} ,
-      newTag: false
+      newTag: false,
+      error: ''
     };
   }
 
@@ -47,7 +49,14 @@ class App extends Component {
   submitNote = (data, id) => {
     this.preformSubmissionRequest(data, id) // this figures out whether or not it's a post/patch
     .then((res) => this.setState({ showNote: false}) )
-    .catch((err) => console.log(err.response.data));
+    .catch((err) => {
+      const { errors } = err.response.data;
+      if (errors.conent) {
+        this.setState({ error: "missing Note Content! "});
+      } else if (errors.title) {
+        this.setState({ error: "Missing Note Title! "});
+      }
+    });
   }
 
   deleteNote = (id) => {
@@ -68,15 +77,30 @@ class App extends Component {
   submitTag = (data, noteId) => {
     axios.post(urlFor(`notes/${noteId}/tags`), data)
     .then((res) => this.getNote(noteId))
-    .catch((err) => console.log(err.response.data));
+    .catch((err) => {
+      const { errors } = err.response.data;
+      if (errors.name) {
+        this.setState({ error: "Missing Tag Name!"})
+      }
+    });
   }
 
+  deleteTag = (noteId, id) => {
+    axios.delete(urlFor(`/tags/${id}`))
+      .then((res) => this.getNote(noteId) )
+      .catch((err) => console.log(err.response.data));
+  }
+
+  resetError = () => {
+
+  }
   render() {
-    const { showNote, notes, note, newTag } = this.state;  // here so you can use the variable as state and this keeps track of state and also needed to push state to child comp for their props - remember to list in their mounted comp in return
+    const { showNote, notes, note, newTag, error } = this.state;  // here so you can use the variable as state and this keeps track of state and also needed to push state to child comp for their props - remember to list in their mounted comp in return
 
     return (
       <div className="App">
         <Nav toggleNote={this.toggleNote} showNote={showNote} />
+        {error && <Flash error={error} resetError={this.resetError} />}
           { showNote ?  // the toggleNote={this.toggleNote} + showNote={showNote} are state that are being passed down
             <Note 
               note={note}
@@ -85,6 +109,7 @@ class App extends Component {
               newTag={newTag}
               closeTagForm={this.closeTagForm}
               submitTag={this.submitTag}
+              deleteTag={this.deleteTag}
             /> 
             : 
             <List 
