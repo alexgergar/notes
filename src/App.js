@@ -34,6 +34,20 @@ class App extends Component {
     .catch((err) => console.log(err.response.data) );
   }
 
+  preformSubmissionRequest = (data, id) => { // this allows us to figure out if it needs to be a put or a patch - bc a patch will already have an id to use, but post won't have one
+    if (id) {
+      return axios.patch(urlFor(`notes/${id}`), data);
+    } else {
+      return axios.post(urlFor('notes'), data);  
+    }
+  }
+  
+  submitNote = (data, id) => {
+    this.preformSubmissionRequest(data, id)
+    .then((res) => this.setState({ showNote: false}) )
+    .catch((err) => console.log(err.response.data));
+  }
+
   render() {
     const { showNote, notes, note } = this.state;  // here so you can use the variable as state and this keeps track of state and also needed to push state to child comp for their props - remember to list in their mounted comp in return
 
@@ -43,6 +57,7 @@ class App extends Component {
           { showNote ?  // the toggleNote={this.toggleNote} + showNote={showNote} are state that are being passed down
             <Note 
               note={note}
+              submitNote={this.submitNote}
             /> 
             : 
             <List 
